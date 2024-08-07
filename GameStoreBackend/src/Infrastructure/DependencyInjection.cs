@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Infrastructure.Persistence;
 using Application.Interfaces;
+using Infrastructure.Services;
 
 
 namespace Infrastructure;
@@ -15,6 +16,8 @@ public static  class DependencyInjection
       services.AddSqlServer<ApplicationDbContext>(connString, builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
 
       services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+      
+      services.AddScoped<IPaymentService>(provider => provider.GetRequiredService<PaymentService>());
       
       return services;
     }

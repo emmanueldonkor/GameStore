@@ -4,9 +4,13 @@ using MediatR;
 
 namespace Application.Games.Commands.CreateGame;
 
-public record CreateGameCommand(string Name, string Description, string Category, decimal Price, string ImageUrl) : IRequest<Game>
+public record class CreateGameCommand : IRequest<Game>
 {
-
+    public required string Name { get; init; }
+    public required string Description { get; init; }
+    public required string Category { get; init; }
+    public decimal Price { get; init; }
+    public required string ImageUrl { get; init; }
 }
 
 public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Game>
@@ -18,18 +22,18 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Game>
         this.dbContext = dbContext;
     }
 
-    public async  Task<Game> Handle(CreateGameCommand request, CancellationToken ct = default)
+    public async Task<Game> Handle(CreateGameCommand request, CancellationToken cancellationToken)
     {
-       Game? newGame = new()
-       {
-        Name = request.Name,
-        Description = request.Description,
-        Category = request.Category,
-        Price = request.Price,
-        ImageUrl = request.ImageUrl,
-       };
-        dbContext.Games.Add(newGame);
-        await dbContext.SaveChangesAsync(ct);
-        return newGame;
+        Game? game = new()
+        {
+            Name = request.Name,
+            Description = request.Description,
+            Genre = request.Category,
+            Price = request.Price,
+            ImageUrl = request.ImageUrl,
+        };
+        dbContext.Games.Add(game);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return game;
     }
 }

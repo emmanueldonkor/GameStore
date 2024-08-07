@@ -1,5 +1,3 @@
-using Application.Interfaces;
-using Application.UseCases;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,8 +12,6 @@ public static class DependencyInjection
         config.RegisterServicesFromAssembly(assembly));
 
         services.AddValidatorsFromAssembly(assembly);
-
-        services.AddScoped<IGameService, GameService>();
 
         return services;
     }
