@@ -1,6 +1,6 @@
 using Domain.Entities;
 using Stripe.Checkout;
-namespace Application.Interfaces;
+namespace Application.Common.Interfaces;
 
 public interface IPaymentService
 {

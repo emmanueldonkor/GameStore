@@ -147,3 +147,7 @@ C:\Users\Emmanuel Donkor\GameStore\GameStoreBackend\src\WebApi\bin\Debug\net8.0\
 C:\Users\Emmanuel Donkor\GameStore\GameStoreBackend\src\WebApi\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Emmanuel Donkor\GameStore\GameStoreBackend\src\WebApi\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Emmanuel Donkor\GameStore\GameStoreBackend\src\WebApi\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Emmanuel Donkor\GameStore\GameStoreBackend\src\WebApi\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\Emmanuel Donkor\GameStore\GameStoreBackend\src\WebApi\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Emmanuel Donkor\GameStore\GameStoreBackend\src\WebApi\bin\Debug\net8.0\Stripe.net.dll
+C:\Users\Emmanuel Donkor\GameStore\GameStoreBackend\src\WebApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

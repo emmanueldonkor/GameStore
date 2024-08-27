@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5DPN8mg1nDHf0ocg3ZVQvIaBlbGLJh8smbMRX9s1X6CjuePENREtE45YTnA9PAKukBRLraoBl5w6+BtSZ4DlSQ==",
+  "dgSpecHash": "CIB2s2EbVHAQUfKGH+6hELko8iygC4FRGOw42hrK/YV4LmEe/zkNHVJ5c4sLN5xTOQg5WsbOtoUbSMJ43SCc7A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Emmanuel Donkor\\GameStore\\GameStoreBackend\\src\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Emmanuel Donkor\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Emmanuel Donkor\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Emmanuel Donkor\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\Emmanuel Donkor\\.nuget\\packages\\fluentvalidation\\11.9.2\\fluentvalidation.11.9.2.nupkg.sha512",

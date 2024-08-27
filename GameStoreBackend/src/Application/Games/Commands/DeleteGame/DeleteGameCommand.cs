@@ -1,11 +1,12 @@
-using Application.Interfaces;
+using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using MediatR;
 
 namespace Application.Games.Commands.DeleteGame;
 
 public record DeleteGameCommand(Guid GameId) : IRequest
 {
-    
+
 }
 public class DeleteCommandHandler : IRequestHandler<DeleteGameCommand>
 {
@@ -16,16 +17,15 @@ public class DeleteCommandHandler : IRequestHandler<DeleteGameCommand>
         this.dbContext = dbContext;
     }
 
-    public async Task Handle(DeleteGameCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteGameCommand request, CancellationToken ct)
     {
-       var existingGame = await  dbContext.Games
-                                   .FindAsync([request.GameId], cancellationToken: cancellationToken);
-
-        if(existingGame is null)
+        var existingGame = await dbContext.Games.
+            FindAsync([request.GameId], cancellationToken: ct);
+        if (existingGame is null)
         {
-            throw new NullReferenceException("Game not found");
+            throw new NotFoundException(nameof(existingGame), request.GameId);
         }
         dbContext.Games.Remove(existingGame);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        await dbContext.SaveChangesAsync(ct);
     }
 }

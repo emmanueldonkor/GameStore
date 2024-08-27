@@ -1,4 +1,4 @@
-using Application.Interfaces;
+using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
 
@@ -8,7 +8,7 @@ public record class CreateGameCommand : IRequest<Game>
 {
     public required string Name { get; init; }
     public required string Description { get; init; }
-    public required string Category { get; init; }
+    public required string Genre { get; init; }
     public decimal Price { get; init; }
     public required string ImageUrl { get; init; }
 }
@@ -28,7 +28,7 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Game>
         {
             Name = request.Name,
             Description = request.Description,
-            Genre = request.Category,
+            Genre = request.Genre,
             Price = request.Price,
             ImageUrl = request.ImageUrl,
         };

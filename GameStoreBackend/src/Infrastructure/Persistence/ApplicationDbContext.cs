@@ -1,5 +1,4 @@
-using System.Data.Common;
-using Application.Interfaces;
+using Application.Common.Interfaces;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -20,8 +19,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<ShippingAddress> ShippingAddresses => Set<ShippingAddress>();
 
     public DbSet<Payment> Payments => Set<Payment>();
-
-    public DbSet<ApplicationUser> Users => Set<ApplicationUser>();
 
     public async Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken ct = default)
     {
@@ -55,10 +52,10 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             .WithOne(oi => oi.Game)
             .HasForeignKey(oi => oi.GameId);
 
-        modelBuilder.Entity<ApplicationUser>()
-            .HasMany(u => u.Orders)
-            .WithOne()
-            .HasForeignKey(o => o.UserId);
+        modelBuilder.Entity<OrderItem>()
+                   .HasOne(o => o.Order)
+                  .WithMany(o => o.OrderItems)
+                  .HasForeignKey(o => o.OrderId);
 
         base.OnModelCreating(modelBuilder);
     }

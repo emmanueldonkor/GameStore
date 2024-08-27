@@ -2,7 +2,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Application.Interfaces;
+namespace Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
@@ -11,8 +11,6 @@ public interface IApplicationDbContext
    DbSet<OrderItem> OrderItems { get; }
    DbSet<ShippingAddress> ShippingAddresses { get; }
    DbSet<Payment> Payments { get; }
-   DbSet<ApplicationUser> Users { get; }
-
    Task<int> SaveChangesAsync(CancellationToken ct = default);
    Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken ct = default);
 }

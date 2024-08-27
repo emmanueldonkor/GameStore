@@ -1,4 +1,4 @@
-using Application.Interfaces;
+using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
 
@@ -6,7 +6,7 @@ namespace Application.Games.Queries;
 
 public record GetGameByIdQuery(Guid GameId) : IRequest<Game?>
 {
-    
+
 }
 public class GetGameByIdQueryHandler : IRequestHandler<GetGameByIdQuery, Game?>
 {

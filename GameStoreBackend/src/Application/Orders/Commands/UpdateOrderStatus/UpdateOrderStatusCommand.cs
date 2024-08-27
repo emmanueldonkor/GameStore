@@ -1,5 +1,5 @@
-using Application.Exceptions;
-using Application.Interfaces;
+using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
 
@@ -11,7 +11,6 @@ public record class UpdateOrderStatusCommand : IRequest
     public OrderStatus Status { get; init; }
 }
 
-
 public class UpdateOrderStatusCommandHandler : IRequestHandler<UpdateOrderStatusCommand>
 {
     private readonly IApplicationDbContext dbContext;
@@ -20,15 +19,14 @@ public class UpdateOrderStatusCommandHandler : IRequestHandler<UpdateOrderStatus
     {
         this.dbContext = dbContext;
     }
-
     public async Task Handle(UpdateOrderStatusCommand request, CancellationToken cancellationToken)
     {
         var existingOrder = await dbContext.Orders.FindAsync([request.OrderId], cancellationToken: cancellationToken);
-        if(existingOrder == null)
+        if (existingOrder is null)
         {
-           Result.Failure($"Order with id {request.OrderId} not found");
+           throw new NotFoundException(nameof(existingOrder), request.OrderId);
         }
-       existingOrder.Status = request.Status;
-       await dbContext.SaveChangesAsync(cancellationToken);   
+        existingOrder.Status = request.Status;
+        await dbContext.SaveChangesAsync(cancellationToken);
     }
 }

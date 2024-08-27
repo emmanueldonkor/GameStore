@@ -1,10 +1,10 @@
-using Application.Interfaces;
+using Application.Common.Interfaces;
 using Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Stripe;
 using Stripe.Checkout;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Payments;
 
 public class PaymentService : IPaymentService
 {
@@ -41,7 +41,6 @@ public class PaymentService : IPaymentService
             CancelUrl = cancelUrl,
             ClientReferenceId = order.Id.ToString()
         };
-
         var service = new SessionService();
         Session session = await service.CreateAsync(options);
         return session;
@@ -51,12 +50,10 @@ public class PaymentService : IPaymentService
     {
         var orderId = Guid.Parse(session.ClientReferenceId);
         var order = await dbContext.Orders.FindAsync(orderId);
-
         if (order is not null)
         {
             order.Status = OrderStatus.Completed;
             dbContext.Orders.Update(order);
-
             var payment = new Payment
             {
                 OrderId = order.Id,
@@ -66,9 +63,7 @@ public class PaymentService : IPaymentService
                 PaymentDate = DateTime.UtcNow,
                 PaymentStatus = PaymentStatus.Paid
             };
-
             dbContext.Payments.Add(payment);
-
             await dbContext.SaveChangesAsync();
         }
     }
