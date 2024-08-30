@@ -9,7 +9,7 @@ namespace WebApi.Extensions
                 options.AddPolicy("GameStorePolicy",
                     builder => builder
                         .WithOrigins("https://localhost:3000")
-                        .WithMethods("GET", "POST", "PUT", "DELETE")
+                        .AllowAnyMethod()
                         .AllowAnyHeader());
             });
             return services;
