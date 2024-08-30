@@ -10,18 +10,19 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers;
 
 [ApiController]
-[Route("api/game")]
+[ApiVersion("1.0")]
+[Route("api/v/{version:apiVersion}/games")]
 public class GameController(ISender sender) : ControllerBase
 {
     private readonly ISender sender = sender;
 
-    [Authorize(Roles = "User")]
+
     [HttpGet]
     public async Task<PaginatedList<GameDto>> GetGamesWithPagination([FromQuery] GetGamesWithPaginationQuery query)
     {
         return await sender.Send(query);
     }
-    [Authorize(Roles = "Admin")]
+
     [HttpPost]
     public async Task<IActionResult> CreateGame(CreateGameCommand command)
     {
@@ -49,7 +50,7 @@ public class GameController(ISender sender) : ControllerBase
         return NoContent();
     }
 
-    [Authorize(Roles = "Admin")]
+    
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteGame(Guid id)
     {
