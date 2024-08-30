@@ -33,7 +33,8 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore GameStoreBackend/GameStoreApi.sln
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build GameStoreBackend/GameStoreApi.sln --configuration Release --no-restore
+
