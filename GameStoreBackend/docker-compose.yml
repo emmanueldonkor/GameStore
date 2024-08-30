@@ -1,5 +1,17 @@
 
 services:
+  webapi:
+    image: gamestore:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - mssql
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=GameStoreDatabase2;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True;"
+
   mssql:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: mssql
@@ -13,3 +25,4 @@ services:
 
 volumes:
   mssqldata:
+
