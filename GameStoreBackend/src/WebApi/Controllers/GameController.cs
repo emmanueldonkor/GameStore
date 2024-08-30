@@ -16,7 +16,6 @@ public class GameController(ISender sender) : ControllerBase
 {
     private readonly ISender sender = sender;
 
-
     [HttpGet]
     public async Task<PaginatedList<GameDto>> GetGamesWithPagination([FromQuery] GetGamesWithPaginationQuery query)
     {
