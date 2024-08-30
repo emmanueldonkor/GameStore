@@ -2,12 +2,12 @@ name: Build and Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
       - '**.cs'
       - '**.csproj'
   pull_request:
-    branches: [ main ]
+    branches: [main]
     paths:
       - '**.cs'
       - '**.csproj'
@@ -33,10 +33,12 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore GameStoreBackend/GameStoreApi.sln
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build GameStoreBackend/GameStoreApi.sln --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test --no-build
+      run: dotnet test GameStoreBackend/GameStoreApi.sln --no-build
+
+    
