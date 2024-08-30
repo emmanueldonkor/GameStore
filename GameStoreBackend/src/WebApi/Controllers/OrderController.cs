@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
 
- [Authorize(Roles = "Admin")]
+
 [ApiController]
-[Route("api/order")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/orders")]
 public class OrderController(ISender sender) : ControllerBase
 {
     private readonly ISender sender = sender;
@@ -18,6 +19,16 @@ public class OrderController(ISender sender) : ControllerBase
     public async Task<PaginatedList<OrderDto>> GetOrders()
     {
         var query = new GetOrdersWithPaginationQuery();
+        return await sender.Send(query);
+    }
+
+    [HttpGet("{userId}")]
+    public async Task<ActionResult<PaginatedList<OrderDto>>> GetOrdersById( string userId, [FromQuery] GetOrdersByIdWithPaginationQuery query)
+    {
+         if(!userId.Equals(query.UserId))
+         {
+            return BadRequest();
+         }
         return await sender.Send(query);
     }
 
