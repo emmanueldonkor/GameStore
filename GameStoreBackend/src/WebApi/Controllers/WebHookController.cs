@@ -7,7 +7,8 @@ using Stripe.Checkout;
 namespace WebApi.Controllers;
 
 [ApiController]
-[Route("api/v1/webhook")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/webhook")]
 public class WebHookController : ControllerBase
 {
     private readonly ISender sender;
