@@ -1,12 +1,18 @@
 using System.Security.Claims;
+using Application.Authorization;
+using Domain.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi.Extensions;
 
 public static class Auth0ApiConfiguration
 {
-    public static IServiceCollection ConfigureAuth0(this IServiceCollection services, IConfiguration configuration)
+    private static readonly List<string> scopes =
+         ["delete:games", "update:games", "create:games", "read:orders","read:user-orders", "update:orders", "create:checkout"];
+   
+    public static IServiceCollection ConfigureAuth0(this IServiceCollection services, IConfiguration configuration,string domain)
     {
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
@@ -18,12 +24,13 @@ public static class Auth0ApiConfiguration
                 NameClaimType = ClaimTypes.NameIdentifier
             };
         });
-        services.AddAuthorization();
-       services.AddAuthorizationBuilder()
-            .AddPolicy("User", policy =>policy.RequireRole("User"))
-            .AddPolicy("Admin", policy => policy.RequireRole("Admin")); 
-            
-       
+        foreach (var scope in scopes)
+        {
+            services.AddAuthorizationBuilder()
+                .AddPolicy(scope, policy =>
+                    policy.Requirements.Add(new HasScopeRequirement(scope, domain)));
+        }
+        services.AddSingleton<IAuthorizationHandler,HasScopeHandler>();
         return services;
     }
 }

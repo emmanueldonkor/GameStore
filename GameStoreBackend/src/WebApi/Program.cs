@@ -6,6 +6,7 @@ using WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var domain = builder.Configuration["Auth0:Domain"];
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -13,13 +14,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureSwagger();
 
 builder.Services.AddControllers();
+
+builder.Services.ConfigureCors();
+
+builder.Services.ConfigureAuth0(builder.Configuration,domain!);
                 
 builder.Services
         .AddApplication()
         .AddInfrastructure(builder.Configuration);
-        
-builder.Services.ConfigureAuth0(builder.Configuration);
 
+builder.Services.ConfigureApiVersion();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -36,9 +40,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
 
 

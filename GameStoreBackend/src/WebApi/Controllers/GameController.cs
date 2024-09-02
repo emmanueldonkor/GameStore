@@ -11,7 +11,7 @@ namespace WebApi.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/v/{version:apiVersion}/games")]
+[Route("api/{v:apiversion}/games")]
 public class GameController(ISender sender) : ControllerBase
 {
     private readonly ISender sender = sender;
@@ -21,7 +21,7 @@ public class GameController(ISender sender) : ControllerBase
     {
         return await sender.Send(query);
     }
-
+    [Authorize("create:games")]
     [HttpPost]
     public async Task<IActionResult> CreateGame(CreateGameCommand command)
     {
@@ -37,7 +37,7 @@ public class GameController(ISender sender) : ControllerBase
         return Ok(result);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize("update:games")]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateGame(Guid id, UpdateGameCommand command)
     {
@@ -49,7 +49,7 @@ public class GameController(ISender sender) : ControllerBase
         return NoContent();
     }
 
-    
+    [Authorize("delete:games")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteGame(Guid id)
     {

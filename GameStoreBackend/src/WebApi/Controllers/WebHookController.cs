@@ -8,7 +8,7 @@ namespace WebApi.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/v{version:apiVersion}/webhook")]
+[Route("api/{v:apiVersion}/webhook")]
 public class WebHookController : ControllerBase
 {
     private readonly ISender sender;

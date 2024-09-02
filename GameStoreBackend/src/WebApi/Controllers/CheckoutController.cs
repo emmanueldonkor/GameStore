@@ -7,8 +7,8 @@ namespace WebApi.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Authorize(Roles = "User")]
-[Route("api/v{version:apiVersion}/checkout")]
+[Authorize("create:checkout")]
+[Route("api/{v:apiVersion}/checkout")]
 public class CheckoutController(ISender sender) : ControllerBase
 {
     private readonly ISender sender = sender;
